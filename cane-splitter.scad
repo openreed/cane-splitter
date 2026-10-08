@@ -23,6 +23,8 @@ cfg_show_hardware = true;
 /*[基本参数 | Basic Parameters]*/
 // 芦苇管外径；0 使用默认值：双簧管 10、巴松 25 mm | Cane OD; 0 selects 10 mm oboe / 25 mm bassoon
 cfg_cane_diameter = 0;
+// 顶盖上沿、主体底沿及掌压盖外沿的 45° 倒角宽度 | 45-degree outer-edge chamfer width on the lid, body base and palm cap
+cfg_edge_chamfer = 1;
 
 /*[刀片参数 | Blade Parameters]*/
 // 完整 009RD 刀片长度，沿刃口方向 | Complete blade length along the cutting edge
@@ -142,9 +144,11 @@ guide_r = (cane_d+1)/2;
 // 橙色导向盖厚度，默认沉孔和榫孔之间保留 1.9 mm | Guide lid thickness; 1.9 mm floor between counterbore and socket
 ring_h = 9;
 // 导向盖固定螺丝及定位圆榫的分布半径 | Shared placement radius of lid screws and locating studs
-ring_bolt_r = body_r-4.8;
-// 导向盖固定柱半径 | Guide screw-post radius
+ring_bolt_r = body_r-6;
+// 导向盖固定座内端半圆的半径，也是连接墙的半宽 | Rounded mount-end radius and half-width of its connecting wall
 ring_post_r = 4.5;
+// 导向盖连接墙的外端，伸入主体侧壁中部 | Outer end of the lid mounting wall, embedded in the body shell
+ring_wall_end = body_r-wall/2;
 // ISO 4762 M4 螺丝的杆长 | ISO 4762 M4 screw length beneath the head
 ring_screw_L = 12;
 // M4 粗牙螺距 | M4 coarse thread pitch
@@ -218,6 +222,15 @@ cap_top = cap_ceiling+4;
 cap_h = cap_top-cap_bottom;
 // 保护盖外半径 | Outside cap radius
 cap_r = body_r+thread_depth+thread_fit+2.5;
+// 顶盖沉孔外侧上沿的最小保留宽度 | Minimum retained lid lip outside a counterbore
+edge_min_lip = 0.4;
+// 主体底部及掌压盖开口的最小保留壁厚 | Minimum retained wall at the body base and palm-cap opening
+edge_min_wall = 1.2;
+// 倒角上限按实际几何计算，并同时保留壁厚与零件高度 | Chamfer limit derived from actual wall clearances and part heights
+edge_chamfer_max = min(body_r-ring_bolt_r-ring_counterbore_d/2-edge_min_lip,
+    wall-edge_min_wall,
+    cap_r-(body_r+thread_depth+thread_fit+0.1)-edge_min_wall,
+    ring_h/2,cap_h/2);
 // 刀座实体合并后统一裁平顶面的越界量 | Top overrun before one common trimming cut
 top_join = 0.3;
 // 自动分段符合 $fa/$fs；手工生成的螺旋网格采用同一精度 | Matching tessellation for manually generated helices
@@ -234,6 +247,14 @@ module radial(count=n,offset=0) {
     for(i=[0:count-1]) rotate([0,0,offset+i*360/count]) children();
 }
 module hex(af,h) { linear_extrude(height=h) polygon([for(t=[0:60:300]) af/(2*cos(30))*[cos(t),sin(t)]]); }
+module outer_edge_chamfer(r,z,upper=false) {
+    // 旋转闭合三角轮廓，仅切外缘；切除体向外及端面越界。
+    // Closed revolved cutter with overrun, limited to the outside edge.
+    c=cfg_edge_chamfer;
+    if(c>0) translate([0,0,z]) rotate_extrude() polygon(upper ?
+        [[r-c-eps,eps],[r+eps,eps],[r+eps,-c-eps]] :
+        [[r-c-eps,-eps],[r+eps,-eps],[r+eps,c+eps]]);
+}
 module blade_frame() {
     multmatrix([[sin(a),0,cos(a),inner_r],[0,1,0,0],
                 [cos(a),0,-sin(a),edge_inner_z],[0,0,0,1]]) children();
@@ -369,6 +390,15 @@ module ring_thread_cutout() {
         screw_hole("M4",length=ring_thread_depth+eps,thread=true,
             tolerance="8G",bevel1=false,bevel2=true,anchor=TOP,$slop=cfg_m4_thread_slop);
 }
+module ring_mount() {
+    // 单个 D 形轮廓：内端半圆护住螺孔，外侧矩形墙一直连到侧壁。
+    // One D-shaped extrusion joins the rounded screw seat to the shell.
+    steps=ceil(circle_segments(ring_post_r)/2);
+    linear_extrude(height=body_h+top_join) polygon(concat(
+        [[ring_wall_end,-ring_post_r],[ring_wall_end,ring_post_r]],
+        [for(i=[0:steps]) let(t=90+180*i/steps)
+            [ring_bolt_r+ring_post_r*cos(t),ring_post_r*sin(t)]]));
+}
 module body_core(with_thread=true) {
     difference() {
         union() {
@@ -382,12 +412,13 @@ module body_core(with_thread=true) {
             }
             support_fins();
             guide_hub();
-            radial(offset=180/n) translate([ring_bolt_r,0,0]) cylinder(r=ring_post_r,h=body_h+top_join);
+            radial(offset=180/n) ring_mount();
             if(with_thread) { external_thread(); cap_stop_shoulder(); }
         }
         // 合并后统一裁平顶面，避免多个共面顶面生成接缝退化面。
         // Trim the united rim, fins and posts once, avoiding coplanar seams.
         translate([-2*cap_r,-2*cap_r,body_h]) cube([4*cap_r,4*cap_r,top_join+eps]);
+        outer_edge_chamfer(body_r,0);
         radial() { blade_channel(); clamp_cutouts(); }
     }
 }
@@ -412,6 +443,7 @@ module lid_fixing_cutout() {
 module locking_ring() {
     difference() {
         cylinder(r=body_r,h=ring_h);
+        outer_edge_chamfer(body_r,ring_h,upper=true);
         translate([0,0,-eps]) cylinder(r=guide_r,h=ring_h+2*eps);
         translate([0,0,ring_h-1]) cylinder(r1=guide_r,r2=guide_r+1,h=1+eps);
         radial(offset=180/n) translate([ring_bolt_r,0,0]) lid_fixing_cutout();
@@ -421,6 +453,8 @@ module cap_world() {
     // World-coordinate thread matches the male helix. Invert for printing.
     difference() {
         translate([0,0,cap_bottom]) cylinder(r=cap_r,h=cap_h);
+        outer_edge_chamfer(cap_r,cap_bottom);
+        outer_edge_chamfer(cap_r,cap_top,upper=true);
         translate([0,0,cap_bottom-eps]) cylinder(r=body_r+thread_fit,h=cap_ceiling-cap_bottom+eps);
         helix(body_r,thread_depth,cap_bottom-thread_pitch,thread_end+thread_pitch,thread_fit,thread_zfit);
         // Open-end lead-in; the deep thread is above this chamfer.
@@ -565,12 +599,18 @@ module diagnostic() {
         echo(metrics=[2*(body_r+2),body_h+locator_h,2*cap_r,cap_top,cap_h,a,clamp_p[0],clamp_p[1]]);
         echo(clamp_support=[clamp_inner_r,clamp_span,fin_t,clamp_edge_margin]);
         echo(guide_hub=[hub_r,hub_h,hub_round,edge_inner_z]);
-        echo(fin_root=[fin_root_z,fin_root_round,hub_projection]); cube(1);
+        echo(fin_root=[fin_root_z,fin_root_round,hub_projection]);
+        echo(ring_mount=[body_r,ring_bolt_r,ring_wall_end,ring_post_r,body_h]);
+        echo(edge_chamfer=[cfg_edge_chamfer,edge_chamfer_max,edge_min_lip,edge_min_wall]); cube(1);
     } else assert(false,"Unknown diagnostic");
 }
 module validate() {
     assert(cfg_instrument=="oboe" || cfg_instrument=="bassoon","Unknown instrument");
     assert(cane_d>=cane_min && cane_d<=cane_max,"Cane OD outside supported range");
+    assert(cfg_edge_chamfer>=0 && cfg_edge_chamfer<=edge_chamfer_max+0.000001,
+        str("Outer chamfer exceeds the wall-based limit: ",edge_chamfer_max," mm"));
+    assert(ring_bolt_r<ring_wall_end,"Lid mount must extend outwards into the shell");
+    assert(ring_bolt_r-ring_post_r>exit_r,"Lid mounting wall intrudes into the cane exit");
     assert(L>=37.5 && L<=40 && W>=18 && W<=20,"Measure actual blade length/width");
     assert(T>=0.20 && T<=0.30 && back_t>=0.4 && back_t<=1.2,"Measure actual blade thickness/back");
     assert(back_w>=4 && back_w<=8 && notch_v+notch_w/2<W-back_w,"Notch overlaps backing; measure it");

@@ -8,52 +8,52 @@
   "manifold": [
     {
       "instrument": "oboe",
-      "elapsed_seconds": 1.545,
+      "elapsed_seconds": 1.706,
       "part": "body",
       "dimensions_mm": [
         63.07,
         63.07,
         50.38
       ],
-      "triangles": 98952,
+      "triangles": 97736,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 55468.6
+      "volume_mm3": 56919.6
     },
     {
       "instrument": "oboe",
-      "elapsed_seconds": 0.332,
+      "elapsed_seconds": 0.337,
       "part": "locking_ring",
       "dimensions_mm": [
         59.07,
         59.07,
         9.0
       ],
-      "triangles": 18674,
+      "triangles": 19394,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 22762.5
+      "volume_mm3": 22729.4
     },
     {
       "instrument": "oboe",
-      "elapsed_seconds": 0.466,
+      "elapsed_seconds": 0.52,
       "part": "palm_cap",
       "dimensions_mm": [
         66.67,
         66.67,
         25.5
       ],
-      "triangles": 32838,
+      "triangles": 34278,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 27343.3
+      "volume_mm3": 27268.4
     },
     {
       "instrument": "oboe",
-      "elapsed_seconds": 0.172,
+      "elapsed_seconds": 0.173,
       "part": "coupon",
       "dimensions_mm": [
         54.0,
@@ -68,7 +68,7 @@
     },
     {
       "instrument": "oboe",
-      "elapsed_seconds": 0.537,
+      "elapsed_seconds": 0.542,
       "part": "connection_coupon",
       "dimensions_mm": [
         37.0,
@@ -83,52 +83,52 @@
     },
     {
       "instrument": "bassoon",
-      "elapsed_seconds": 1.815,
+      "elapsed_seconds": 1.913,
       "part": "body",
       "dimensions_mm": [
         76.92,
         76.92,
         52.58
       ],
-      "triangles": 119782,
+      "triangles": 117910,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 77173.8
+      "volume_mm3": 79215.7
     },
     {
       "instrument": "bassoon",
-      "elapsed_seconds": 0.334,
+      "elapsed_seconds": 0.5,
       "part": "locking_ring",
       "dimensions_mm": [
         72.92,
         72.92,
         9.0
       ],
-      "triangles": 20984,
+      "triangles": 21704,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 31394.1
+      "volume_mm3": 31353.1
     },
     {
       "instrument": "bassoon",
-      "elapsed_seconds": 0.484,
+      "elapsed_seconds": 0.633,
       "part": "palm_cap",
       "dimensions_mm": [
         80.52,
         80.52,
         25.5
       ],
-      "triangles": 32838,
+      "triangles": 34278,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 36733.4
+      "volume_mm3": 36642.8
     },
     {
       "instrument": "bassoon",
-      "elapsed_seconds": 0.16,
+      "elapsed_seconds": 0.181,
       "part": "coupon",
       "dimensions_mm": [
         54.0,
@@ -143,7 +143,7 @@
     },
     {
       "instrument": "bassoon",
-      "elapsed_seconds": 0.529,
+      "elapsed_seconds": 0.597,
       "part": "connection_coupon",
       "dimensions_mm": [
         37.0,

@@ -1,0 +1,242 @@
+{
+  "backend": "Manifold",
+  "circular_precision": {
+    "fa": 1.0,
+    "fs": 0.1,
+    "fn": 0.0
+  },
+  "instruments": {
+    "oboe": {
+      "default_chamfer_mm": 0.6,
+      "calculated_default_chamfer_limit_mm": 1.2,
+      "default_screw_radius_mm": 23.5345,
+      "variant_screw_radius_mm": 19.5345,
+      "variant_outer_edge_setback_mm": 10,
+      "variant_chamfer_mm": 1.0,
+      "variant_body_mesh": {
+        "part": "body",
+        "dimensions_mm": [
+          63.07,
+          63.07,
+          50.38
+        ],
+        "triangles": 97736,
+        "components": 1,
+        "closed_manifold": true,
+        "nondegenerate_faces": true,
+        "volume_mm3": 61708.2
+      },
+      "connecting_wall_columns": [
+        {
+          "x_mm": 15.356,
+          "y_mm": 18.598,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 8.428,
+          "y_mm": 22.598,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -23.785,
+          "y_mm": 4.0,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -23.785,
+          "y_mm": -4.0,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 8.428,
+          "y_mm": -22.598,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 15.356,
+          "y_mm": -18.598,
+          "new_top_z_mm": 47.882,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        }
+      ],
+      "assembly_checks": [
+        {
+          "check": "blade_body",
+          "passed": true
+        },
+        {
+          "check": "clamp_body",
+          "passed": true
+        },
+        {
+          "check": "body_ring",
+          "passed": true
+        },
+        {
+          "check": "split_exit",
+          "passed": true
+        },
+        {
+          "check": "ring_screw_lid",
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 3,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_fit",
+          "cfg_cap_turns": 0,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_fit",
+          "cfg_cap_turns": 0.25,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0,
+          "passed": true
+        }
+      ],
+      "outward_hole_insufficient_lip_rejected": true,
+      "excessive_cap_chamfer_rejected": true
+    },
+    "bassoon": {
+      "default_chamfer_mm": 0.6,
+      "calculated_default_chamfer_limit_mm": 1.2,
+      "default_screw_radius_mm": 30.4588,
+      "variant_screw_radius_mm": 26.458799999999997,
+      "variant_outer_edge_setback_mm": 10,
+      "variant_chamfer_mm": 1.0,
+      "variant_body_mesh": {
+        "part": "body",
+        "dimensions_mm": [
+          76.92,
+          76.92,
+          52.58
+        ],
+        "triangles": 117910,
+        "components": 1,
+        "closed_manifold": true,
+        "nondegenerate_faces": true,
+        "volume_mm3": 85922.4
+      },
+      "connecting_wall_columns": [
+        {
+          "x_mm": 24.543,
+          "y_mm": 18.886,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 18.886,
+          "y_mm": 24.543,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -18.886,
+          "y_mm": 24.543,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -24.543,
+          "y_mm": 18.886,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -24.543,
+          "y_mm": -18.886,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": -18.886,
+          "y_mm": -24.543,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 18.886,
+          "y_mm": -24.543,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        },
+        {
+          "x_mm": 24.543,
+          "y_mm": -18.886,
+          "new_top_z_mm": 50.077,
+          "old_top_z_mm": 3.0,
+          "continuous_from_bed": true
+        }
+      ],
+      "assembly_checks": [
+        {
+          "check": "blade_body",
+          "passed": true
+        },
+        {
+          "check": "clamp_body",
+          "passed": true
+        },
+        {
+          "check": "body_ring",
+          "passed": true
+        },
+        {
+          "check": "split_exit",
+          "passed": true
+        },
+        {
+          "check": "ring_screw_lid",
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 3,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_fit",
+          "cfg_cap_turns": 0,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_fit",
+          "cfg_cap_turns": 0.25,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0,
+          "passed": true
+        }
+      ],
+      "outward_hole_insufficient_lip_rejected": true,
+      "excessive_cap_chamfer_rejected": true
+    }
+  }
+}

@@ -7,11 +7,11 @@
         63.07,
         50.38
       ],
-      "triangles": 98952,
+      "triangles": 97736,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 55468.6
+      "volume_mm3": 56919.6
     },
     {
       "part": "connection_coupon",
@@ -46,11 +46,11 @@
         59.07,
         9.0
       ],
-      "triangles": 18674,
+      "triangles": 19394,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 22762.5
+      "volume_mm3": 22729.4
     },
     {
       "part": "palm_cap",
@@ -59,11 +59,11 @@
         66.67,
         25.5
       ],
-      "triangles": 32838,
+      "triangles": 34278,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 27343.3
+      "volume_mm3": 27268.4
     }
   ],
   "bassoon": [
@@ -74,11 +74,11 @@
         76.92,
         52.58
       ],
-      "triangles": 119782,
+      "triangles": 117910,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 77173.8
+      "volume_mm3": 79215.7
     },
     {
       "part": "connection_coupon",
@@ -113,11 +113,11 @@
         72.92,
         9.0
       ],
-      "triangles": 20984,
+      "triangles": 21704,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 31394.1
+      "volume_mm3": 31353.1
     },
     {
       "part": "palm_cap",
@@ -126,11 +126,11 @@
         80.52,
         25.5
       ],
-      "triangles": 32838,
+      "triangles": 34278,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 36733.4
+      "volume_mm3": 36642.8
     }
   ]
 }

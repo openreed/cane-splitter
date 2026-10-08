@@ -1,0 +1,166 @@
+{
+  "backend": "Manifold",
+  "circular_precision": {
+    "fa": 1.0,
+    "fs": 0.1,
+    "fn": 0.0
+  },
+  "edge_chamfer_mm": 0.6,
+  "calculated_maximum_mm": 1.2,
+  "scope": "Current default chamfer results from the full model validation; dynamic parameter variants are in ring-mount-validation.json.",
+  "validation_source": "model-validation.json",
+  "instruments": {
+    "oboe": {
+      "checks": [
+        {
+          "check": "blade_body",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "clamp_body",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "body_ring",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "split_exit",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_lid",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "ring_head_stop",
+          "expected_contact": true,
+          "passed": true
+        },
+        {
+          "check": "cap_stop",
+          "expected_contact": true,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 0,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 0.5,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 3,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0.0,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0.5,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 2.5,
+          "expected_contact": false,
+          "passed": true
+        }
+      ],
+      "physical_validation": false
+    },
+    "bassoon": {
+      "checks": [
+        {
+          "check": "blade_body",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "clamp_body",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "body_ring",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "split_exit",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "ring_screw_lid",
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "ring_head_stop",
+          "expected_contact": true,
+          "passed": true
+        },
+        {
+          "check": "cap_stop",
+          "expected_contact": true,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 0,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 0.5,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "lid_insertion",
+          "cfg_insertion": 3,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0.0,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 0.5,
+          "expected_contact": false,
+          "passed": true
+        },
+        {
+          "check": "cap_fit",
+          "cfg_cap_turns": 2.5,
+          "expected_contact": false,
+          "passed": true
+        }
+      ],
+      "physical_validation": false
+    }
+  }
+}

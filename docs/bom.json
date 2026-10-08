@@ -1,5 +1,5 @@
 {
-  "revision": "2026-10-08 blended hub/spoke root footprint and 6 mm guide projection",
+  "revision": "2026-10-08 continuous D-shaped lid mounting walls and geometry-based chamfer limit",
   "printed_parts": [
     "body",
     "locking_ring",
@@ -79,7 +79,10 @@
     "nominal_engagement_mm": 9.8,
     "nominal_tip_clearance_mm": 2.2,
     "BOSL2_tolerance": "8G",
-    "BOSL2_slop_mm": 0.04
+    "BOSL2_slop_mm": 0.04,
+    "mount_geometry": "D-shaped rounded inner end and rectangular wall embedded in body shell",
+    "mount_wall_width_mm": 9,
+    "screw_radial_setback_from_outer_shell_mm": 6
   },
   "circular_precision": {
     "fa": 1.0,
@@ -101,5 +104,19 @@
     "height_above_fin_roots_mm": 6,
     "root_rounding_radius_mm": 0.8,
     "geometry": "one blended hub/spoke footprint with concave root fillets"
+  },
+  "outer_edge_chamfers": {
+    "width_mm": 0.6,
+    "angle_deg": 45,
+    "locations": [
+      "orange lid upper outer edge",
+      "body lower outer edge",
+      "palm cap both outer edges"
+    ],
+    "minimum_lid_counterbore_outer_top_lip_mm": 1.6,
+    "minimum_body_bottom_shell_radial_thickness_mm": 2.4,
+    "calculated_maximum_mm": 1.2,
+    "minimum_retained_lid_lip_mm": 0.4,
+    "minimum_retained_shell_wall_mm": 1.2
   }
 }

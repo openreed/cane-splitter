@@ -51,7 +51,7 @@ def circular_precision(source):
 
 def definitions(args, part):
     values = {"cfg_part": part, "cfg_instrument": VERSIONS[args.version][0]}
-    for name in ("cane_diameter", "blade_length", "blade_width", "blade_thickness",
+    for name in ("cane_diameter", "edge_chamfer", "blade_length", "blade_width", "blade_thickness",
                  "back_thickness", "back_width", "blade_slot_clearance", "back_slot_clearance",
                  "notch_depth", "notch_width", "notch_from_edge",
                  "thread_radial_clearance", "thread_axial_clearance", "locator_diameter",
@@ -108,7 +108,7 @@ def main():
     parser.add_argument("--assembly-only", action="store_true", help="Export assembly CSG for inspection")
     parser.add_argument("--openscad")
     parser.add_argument("--backend", choices=("Manifold", "CGAL"), default="Manifold")
-    for option in ("cane-diameter", "blade-length", "blade-width", "blade-thickness",
+    for option in ("cane-diameter", "edge-chamfer", "blade-length", "blade-width", "blade-thickness",
                    "back-thickness", "back-width", "blade-slot-clearance", "back-slot-clearance",
                    "notch-depth", "notch-width", "notch-from-edge",
                    "thread-radial-clearance", "thread-axial-clearance", "locator-diameter",
