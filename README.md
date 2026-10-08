@@ -10,6 +10,8 @@ Cane enters **from the top and moves downward**. The orange-red bevel is the cut
 
 Each complete blade is clamped by one **M2.5 ×10 screw through its round-bottom side notch**, plus washer and captured nut. The slot supports the sides; the screw clamps the printed cheeks and provides positive metal retention. The orange guide lid uses M4 ×12 socket-head screws directly in modeled M4 ×0.7 blind threads. No lid nuts or washers. Three sets per oboe unit; four per bassoon. No blade cutting, drilling or custom metal.
 
+The Ø4.4 mm central guide is 12.3 mm high for oboe and 16.2 mm for bassoon, projecting 6 mm above the fin roots, with a 0.6 mm rounded top edge. One hub/spoke footprint is merged and given 0.8 mm concave root fillets; the rectangular spoke ends are buried at the axis. This gives continuous bottom transitions without exposed square root corners. See the [bottom view](docs/images/oboe/body_bottom.png) and [root detail](docs/images/oboe/root_detail.png). The orange lid guides the cane outside diameter.
+
 Blade clamp holes now lie in straight 8 mm-thick outer support webs, continuous from the bed to the top, instead of raised cylindrical ears. The 3.2 mm central fins and cane exits remain clear. This removes the unsupported local clamping projections when printing upright.
 
 The orange lid locates on coaxial hollow round studs, Ø7 ×2.5 mm, with 0.4 mm tip chamfers. Bottom sockets are Ø7.3 ×2.8 mm. Its 9 mm thickness leaves a 1.9 mm floor between these sockets and Ø7.6 ×4.3 mm head counterbores. M4 socket heads sit 0.3 mm below the top. Nominal screw engagement is 9.8 mm with 2.2 mm tip clearance. The optional `connection_coupon` checks the actual PETG/M4 fit. Default BOSL2 internal tolerance is 8G with `$slop=0.04` (0.16 mm added diameter).

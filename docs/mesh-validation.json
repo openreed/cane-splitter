@@ -7,11 +7,11 @@
         63.07,
         50.38
       ],
-      "triangles": 94386,
+      "triangles": 98952,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 55966.1
+      "volume_mm3": 55468.6
     },
     {
       "part": "connection_coupon",
@@ -74,11 +74,11 @@
         76.92,
         52.58
       ],
-      "triangles": 114816,
+      "triangles": 119782,
       "components": 1,
       "closed_manifold": true,
       "nondegenerate_faces": true,
-      "volume_mm3": 77633.5
+      "volume_mm3": 77173.8
     },
     {
       "part": "connection_coupon",

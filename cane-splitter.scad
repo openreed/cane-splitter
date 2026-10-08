@@ -101,7 +101,7 @@ notch_w = cfg_notch_width;
 notch_v = cfg_notch_from_edge;
 // 刃口内端距中心轴的距离 | Radius of the inner cutting-edge end
 inner_r = 2.5;
-// 中心支撑柱半径 | Central support radius
+// 中心短导向柱半径，与三／四条支撑筋相连 | Short central guide radius, joined to all fins
 hub_r = 2.2;
 // 刀背内端的高度基准 | Height datum at the inner back end
 seat_z = 5;
@@ -115,6 +115,16 @@ edge_exposure = 0.8;
 a = asin((cane_max/2+1-inner_r)/L);
 // 刃口内端高度 | Inner cutting-edge height
 edge_inner_z = seat_z+W*sin(a);
+// 支撑筋中心端的顶部高度 | Top height at the central end of each support fin
+fin_root_z = edge_inner_z-0.8;
+// 导向柱高于支撑筋根部的长度 | Guide projection above the support-fin roots
+hub_projection = 6;
+// 中心导向柱总高度 | Overall central guide height
+hub_h = fin_root_z+hub_projection;
+// 中心短柱顶部圆角半径 | Top-edge rounding radius of the short hub
+hub_round = 0.6;
+// 导向柱与支撑筋之间的平面内凹圆角半径 | Concave plan fillet between the hub and support fins
+fin_root_round = 0.8;
 // 刃口外端半径 | Outer cutting-edge radius
 edge_outer_r = inner_r+L*sin(a);
 // 刃口外端高度 | Outer cutting-edge height
@@ -268,16 +278,24 @@ module blade_channel() {
         translate([0,0,body_h+L]) xz_prism(rect(-overrun,L+overrun,v0,W+overrun),t);
     }
 }
-module fin() {
-    // 中心切分段保持薄筋 | Keep the cutting/exit region thin.
-    xz_prism([[hub_r-0.2,0],[body_r-wall/2,0],[body_r-wall/2,body_h+top_join],
-        [edge_outer_r+edge_exposure,body_h+top_join],
-        [edge_outer_r+edge_exposure,edge_outer_z],
-        [inner_r+edge_exposure,edge_inner_z],
-        [hub_r-0.2,edge_inner_z-0.8]],fin_t);
+module support_fins() {
+    // 先统一柱根与筋条的平面轮廓，内端伸至轴心后整体加内凹圆角。
+    // Blend one hub/spoke footprint; the spoke ends are buried at the axis.
+    intersection() {
+        linear_extrude(height=body_h+top_join) round2d(ir=fin_root_round) union() {
+            circle(r=hub_r);
+            radial() translate([0,-fin_t/2]) square([body_r-wall/2,fin_t]);
+        }
+        // 较宽的高度裁剪体只限制顶部斜面；实际筋宽由上面的轮廓确定。
+        // The wide mask sets sloping top heights; the footprint sets fin width.
+        radial() xz_prism([[0,0],[body_r-wall/2,0],[body_r-wall/2,body_h+top_join],
+            [edge_outer_r+edge_exposure,body_h+top_join],
+            [edge_outer_r+edge_exposure,edge_outer_z],
+            [inner_r+edge_exposure,edge_inner_z],[0,fin_root_z]],fin_t+2*fin_root_round);
+    }
     // 螺孔直接位于从底面到顶面的整条厚壁内，不再添加横向圆柱凸耳。
     // The screw sits in a straight web supported from the bed to the top.
-    xz_prism([[clamp_inner_r,0],[body_r-wall/2,0],
+    radial() xz_prism([[clamp_inner_r,0],[body_r-wall/2,0],
         [body_r-wall/2,body_h+top_join],[clamp_inner_r,body_h+top_join]],clamp_span);
 }
 module clamp_cutouts() {
@@ -286,6 +304,16 @@ module clamp_cutouts() {
     // Nut is loaded from the +Y face with ring removed; pocket keeps it still.
     translate([clamp_p[0],clamp_span/2+eps,clamp_p[1]]) rotate([90,0,0])
         hex(clamp_nut_af+0.25,clamp_nut_h+0.15+eps);
+}
+
+module guide_hub() {
+    // 单个旋转实体生成圆头短柱，避免圆柱与球面相切的布尔接缝。
+    // One revolved solid makes the rounded hub without tangent Boolean seams.
+    arc_steps=ceil(circle_segments(hub_round)/4);
+    rotate_extrude() polygon(concat([[0,0],[hub_r,0]],
+        [for(i=[0:arc_steps]) let(t=90*i/arc_steps)
+            [hub_r-hub_round+hub_round*cos(t),hub_h-hub_round+hub_round*sin(t)]],
+        [[0,hub_h]]));
 }
 
 // 闭合的三角面螺纹扫掠体，所有面朝外 | Closed thread sweep with outward faces.
@@ -352,9 +380,8 @@ module body_core(with_thread=true) {
                 cylinder(r=body_r,h=3);
                 translate([0,0,-eps]) cylinder(r=exit_r,h=3+2*eps);
             }
-            radial() fin();
-            cylinder(r=hub_r,h=body_h-6);
-            translate([0,0,body_h-6]) cylinder(r1=hub_r,r2=1.2,h=6);
+            support_fins();
+            guide_hub();
             radial(offset=180/n) translate([ring_bolt_r,0,0]) cylinder(r=ring_post_r,h=body_h+top_join);
             if(with_thread) { external_thread(); cap_stop_shoulder(); }
         }
@@ -536,7 +563,9 @@ module diagnostic() {
     else if(cfg_check=="clamp_washer_mesh") washer(6,2.7);
     else if(cfg_check=="metrics") {
         echo(metrics=[2*(body_r+2),body_h+locator_h,2*cap_r,cap_top,cap_h,a,clamp_p[0],clamp_p[1]]);
-        echo(clamp_support=[clamp_inner_r,clamp_span,fin_t,clamp_edge_margin]); cube(1);
+        echo(clamp_support=[clamp_inner_r,clamp_span,fin_t,clamp_edge_margin]);
+        echo(guide_hub=[hub_r,hub_h,hub_round,edge_inner_z]);
+        echo(fin_root=[fin_root_z,fin_root_round,hub_projection]); cube(1);
     } else assert(false,"Unknown diagnostic");
 }
 module validate() {

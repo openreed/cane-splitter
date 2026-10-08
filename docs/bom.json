@@ -1,5 +1,5 @@
 {
-  "revision": "2026-10-08 continuous outer clamping webs / no raised blade-clamp ears",
+  "revision": "2026-10-08 blended hub/spoke root footprint and 6 mm guide projection",
   "printed_parts": [
     "body",
     "locking_ring",
@@ -92,5 +92,14 @@
     "screw_centre_to_inner_edge_mm": 3.8,
     "central_fin_thickness_mm": 3.2,
     "hardware_changed": false
+  },
+  "guide_hub": {
+    "diameter_mm": 4.4,
+    "oboe_height_mm": 12.314102564102564,
+    "bassoon_height_mm": 16.16923076923077,
+    "top_rounding_radius_mm": 0.6,
+    "height_above_fin_roots_mm": 6,
+    "root_rounding_radius_mm": 0.8,
+    "geometry": "one blended hub/spoke footprint with concave root fillets"
   }
 }
