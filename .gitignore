@@ -1,0 +1,7 @@
+3D_files/
+__pycache__/
+*.pending.*
+.DS_Store
+prompt.md
+archive
+scripts

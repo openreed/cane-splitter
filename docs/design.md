@@ -1,0 +1,63 @@
+# Revised mechanical design
+
+## Source and simplicity
+
+All active geometry and parameters are in one `cane-splitter.scad`, with a single instrument selector. The three printed parts are unchanged in count. `render.py` is optional batch export; Python scripts inspect artifacts. No product-specific SCAD wrappers or instrument-specific source tree is needed. BOSL2 std.scad/screws.scad provide the real metric screw geometry, matching the neighboring reed-guillotine workflow. Prior historical archives are left untouched.
+
+## Cutting orientation
+
+Let u run along the 39 mm blade edge and v from edge toward backing. The corrected radial/height transformation is:
+
+`r = 2.5 + u*sin(a) + v*cos(a)`
+
+`z = edge_inner_z + u*cos(a) - v*sin(a)`
+
+At a fixed cane radius, positive v puts the unsharpened material BELOW the cutting edge. The u=L short end is outside the maximum cane radius by 1 mm. Thus a top-down ray hits v=0, not the blunt short end. The earlier transformation put the back on the incoming side and was wrong for top-down feeding. No reversal of user feed direction is required.
+
+The edge is modeled with a finite 0.01 mm tip thickness widening to the nominal face thickness over 0.7 mm. Orange-red bevel and gray blade body are disjoint reference volumes sharing one boundary, not overlapping colored skins. Printed exports omit all reference metal and arrows. Support fins begin 0.8 mm radially behind the edge. The central support remains Ø4.4 mm, with three/four open output sectors.
+
+## Positive blade fixing
+
+The blade profile and notch dimensions are copied from the current adjacent `reed-guillotine` parameters and notch module. Each notch comprises a rectangular opening and a semicircular root: width 3 mm, total depth 3.8 mm, center 9.6 mm behind the edge. The root center is 3.8 −3/2 =2.3 mm from the short end, so the M2.5 screw is placed there, not at the midpoint of a rectangular approximation.
+
+One M2.5 ×10 socket screw, washer and captured nut per blade passes perpendicular to the blade plane through the outer notch. The screw hole is inside a straight 8 mm-thick outer fin segment, spanning from the bottom plane to the body top. Its inner radial edge is 3.8 mm inward from the screw centre and remains outside the cane exit. This replaces the former transverse cylindrical boss with material continuously supported during upright printing. The two cheeks retain the same 8 mm span, 2.8 mm hole and nut pocket; existing M2.5 ×10 hardware still fits. The nut is loaded on the positive tangential side with the guide removed. Tightening compresses the printed cheeks against the blade. The metal shank provides a fallback axial stop even if clamping friction relaxes. Actual tightening force and PETG creep must be tested; no torque rating is claimed.
+
+The full blade and backing guides are swept VERTICALLY upward from the measured envelope. This permits straight insertion while keeping the outer shell thick; sweeping along the tilted long edge would have thinned the upper wall. The shaft is installed only after blade insertion. The side slots alone are not relied on for retention. Removing a blade requires releasing its clamp.
+
+Total backing thickness defaults to 0.53 mm because the current guillotine blade module models `back_clamp_thickness + blade_thickness`, with values 0.30 and 0.23 mm. This is a project assumption, not a universal .009 specification. Other brands, including [Excel #9](https://excelblades.com/products/9-single-edge-razor-blades), list other backing thicknesses. Measure actual blades and adjust.
+
+## Threaded cap and guide
+
+The large cylindrical cap has a single-start, right-hand trapezoidal thread, pitch 3.6 mm, depth 1 mm, with broad roots/crests, approximately 45-degree flanks and tapered entry/exit. The male segment is 8 mm long; about 2.2 turns engage. Radial/axial fit defaults to 0.30/0.15 mm. The helix is an explicitly closed, triangulated polyhedron, not a zero-thickness surface. The sweep faces, including both end caps, follow OpenSCAD’s clockwise-from-outside convention. The previous sweep was consistently inside out: CGAL produced the intended bounded shape, while Manifold interpreted its Boolean operations incorrectly. Positive signed-volume and oriented-edge checks now validate the standalone sweep before it is unioned with the body or subtracted from the cap. All circles use the current source settings $fa=1, $fs=0.1 and $fn=0. The manual sweep derives its angular sample count from the same rule as circular primitives; at the current cap radii it uses 360 samples per turn. No fixed low-resolution facet count overrides these settings. A 0.73-degree angular phase keeps sweep facets apart from cylindrical facet seams.
+
+The cap thread is cut in assembled world coordinates using the same helix as the male thread. The whole cap is then inverted for printing. This avoids accidentally generating an incompatible handedness. Unscrewing is counterclockwise viewed from the external palm face, with upward motion equal to pitch times revolutions. The cap underside contains a shallow cane-centering cup; the palm face is flat and 4 mm thick. Internal cup and hardware have free clearance in the stored pose.
+
+The orange guide lid seats on one coaxial hollow round stud at each fixing point: three for oboe, four for bassoon. Each stud is Ø7 ×2.5 mm, with a 0.4 mm tip chamfer, overlapping the existing post by 0.02 mm. The receiving bottom sockets are Ø7.3 ×2.8 mm with a small entry chamfer. Their diameter clearance is 0.30 mm and axial clearance 0.30 mm. The studs locate the lid before screws are inserted and resist lateral displacement without extra separate pins.
+
+M4 ×12 ISO 4762 socket-head screws replace the former M3 screw/nut/washer stacks. A BOSL2 screw_hole("M4", thread=true, tolerance="8G") cuts an actual right-hand M4 ×0.7 blind thread through each stud into the body. Hole depth is 12 mm from the stud top; the default printing slop is 0.04 mm, which BOSL2 enlarges into 0.16 mm added diameter. A matching 6g screw reference is phased using the thread centre heights and BOSL2 internal half-pitch profile shift; screws are real threaded solids in inspection views, not cylindrical stand-ins.
+
+The lid is 9 mm thick. Its Ø4.4 mm shaft clearance hole connects a Ø7.6 ×4.3 mm counterbore above and the locating socket below. The internal floor between the two larger recesses is 1.9 mm thick; the head-bearing plane is 4.7 mm above the body seat. A Ø7 ×4 mm socket head sits 0.3 mm below the lid surface. Nominal thread engagement is 9.8 mm, with 2.2 mm axial clearance at the blind bottom. The M4 connection has no separate washer or nut. A two-block connection_coupon reproduces the stud, socket, thread and counterbore for trial printing.
+
+An integral printed annular shoulder below the large cap thread provides a positive storage stop. Its 2.4 mm high taper is printable and its hollow centre leaves all cane exits open. The cap interior was raised to clear the thicker lid and its centering lip: 2 mm above the lid, leaving 0.5 mm below the 1.5 mm-deep lip. Overall stored height grows only 2 mm. No clips, interference ribs or decorative grip cuts interrupt the cap thread. Thread fit and wear require physical testing.
+
+## Geometry and printing
+
+Body wall 3 mm; central fins 3.2 mm; outer clamping webs 8 mm; cap root wall at least 2.5 mm. The body is printed upright, ring flat and cap palm face down/open cup up. The support fins retreat outward with height, avoiding the large underside overhang a mirrored blade seat would otherwise cause. Body/cap threads have printable flank slopes. Nut pockets and horizontal clamp holes use short bridges; inspect the slicer. The cap's internal centering lip rises directly from the solid palm floor. Body layers of 0.15 mm are suggested for the 0.7 mm-pitch M4 threads. The lid socket-to-shaft transition bridges only about 1.45 mm radially; no support should be inserted in the threaded holes or locating sockets.
+
+The rim, full-height fin ends and guide posts extend 0.3 mm beyond the intended top, are united, then cut to one common top plane. This avoids joining independently coincident top faces and preserves the body height and shape. The backing-slot cutter overruns the face-slot cutter at its ends; the actual face/back slot widths remain independently specified. The reference blade now extrudes its thin face, bevel and thicker backing from one stepped profile, eliminating overlapping end faces.
+
+Each main part is explicitly rendered as a complete solid in preview. Blade bevel colors are separated by solid intersections/differences. This removes overlapping preview skins and avoids using transparency to expose internals. A section view is intentionally a CUT solid; its opened appearance does not mean a printable component has missing faces.
+
+## Verification
+
+`check_meshes.py` rejects collapsed or zero-area facets, duplicate faces, nonfinite coordinates, edges without exactly two oppositely oriented incident faces, nonpositive volume and wrong connected components. Main printed parts must each be one closed component on z=0; the blade coupon intentionally contains three separate blocks and the connection coupon two. All fit in the 180 mm build volume.
+
+`check_model.py` also checks blade, screw, nut and washer solids separately. Top-down rays across 19 radii per instrument must hit the modeled edge first; neighboring fin surfaces must remain below it. The script also casts vertical rays through six columns in the outer clamping webs and requires uninterrupted material from z=0.2 mm to just below the clamp hole. These checks would reject the former raised ears, whose columns have a gap above the bottom floor. The script tests blade fit, straight insertion at six positions, metal notch retention after axial displacement, conservative exit clearance, guide limits and an invalid notch input. New checks cover seven vertical lid insertion positions, deliberate locator misalignment, recessed head/shaft clearance, positive counterbore-floor contact, six M4 thread-unscrewing positions and a deliberately wrong M4 thread phase. The wrong-phase control must intersect material so a plain cylindrical bore cannot pass as a threaded hole.
+
+Thread checks cover the stored pose, every one-eighth turn from 0 to 2.5 revolutions, and 0.1 revolution. They compare the actual cap and male thread with a solid cylindrical envelope enclosing the grip, blades and guide, plus the stop shoulder and explicit protruding fasteners. A separate downward-displacement check must collide with the shoulder to verify the positive stop. This conservative bound is stronger than relying on empty internal pockets. Blade/cane tests omit the exterior thread, which lies entirely outside their bounded envelopes. A deliberately wrong thread phase must collide, so an empty test cannot pass merely because the thread is absent.
+
+Diagnostic intersections can contain intended washer/boss, ring/rim or cap/shoulder contact surfaces. These are not physical part exports. The checks measure bounded intersection volume with a 0.0001 mm³ allowance for float32 STL rounding; a deliberately wrong thread phase and a downward stop violation must exceed that allowance. Every physical printed part, metal reference and standalone thread sweep must pass the strict closed-solid mesh checks.
+
+`check_backends.py` validates the actual Manifold exports of both instruments using the current source circular settings, including both coupons. An explicit --compare-cgal option compares dimensions and volumes with CGAL; this is optional because the higher resolution makes CGAL considerably slower. docs/backend-validation.json records current Manifold results and local timings. render.py defaults to Manifold for STL and colored PNG generation, with an explicit --backend CGAL option. The former fixed-segment --quality override was removed. Measurements used the locally installed OpenSCAD 2025.12.07 and BOSL2; timings are specific to this machine and resolution.
+
+Digital checks do not establish splitting force, clamp preload, cover friction, thread fatigue or behavior of oval/nodal cane. Start with a fit coupon and waste cane before relying on the tool.

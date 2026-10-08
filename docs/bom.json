@@ -1,0 +1,96 @@
+{
+  "revision": "2026-10-08 continuous outer clamping webs / no raised blade-clamp ears",
+  "printed_parts": [
+    "body",
+    "locking_ring",
+    "palm_cap"
+  ],
+  "optional_fit_test": [
+    "coupon: three blade-slot blocks",
+    "connection_coupon: two locating-stud/M4-fit blocks"
+  ],
+  "material": "PETG",
+  "blade": {
+    "envelope_mm": [
+      39,
+      19.4,
+      0.23
+    ],
+    "back_total_thickness_mm": 0.53,
+    "back_width_mm": 7,
+    "round_bottom_notch": {
+      "width_mm": 3,
+      "depth_mm": 3.8,
+      "edge_distance_mm": 9.6
+    },
+    "source": "Current neighboring reed-guillotine/libs/obeh/params.scad and modules/blade.scad, modules/blade_holder.scad",
+    "oboe_quantity": 3,
+    "bassoon_quantity": 4
+  },
+  "hardware": [
+    {
+      "item": "M2.5 x10 socket-head screw",
+      "standard": "ISO 4762",
+      "purpose": "blade notch clamp",
+      "oboe_quantity": 3,
+      "bassoon_quantity": 4
+    },
+    {
+      "item": "M2.5 hex nut",
+      "standard": "ISO 4032",
+      "across_flats_mm": 5,
+      "height_mm": 2,
+      "purpose": "blade notch clamp",
+      "oboe_quantity": 3,
+      "bassoon_quantity": 4
+    },
+    {
+      "item": "M2.5 washer",
+      "standard": "ISO 7089",
+      "outer_diameter_mm": 6,
+      "height_mm": 0.5,
+      "purpose": "blade notch clamp",
+      "oboe_quantity": 3,
+      "bassoon_quantity": 4
+    },
+    {
+      "item": "M4 x12 socket-head screw",
+      "standard": "ISO 4762",
+      "thread_pitch_mm": 0.7,
+      "head_diameter_mm": 7,
+      "head_height_mm": 4,
+      "purpose": "recessed orange guide lid, direct printed internal thread",
+      "oboe_quantity": 3,
+      "bassoon_quantity": 4
+    }
+  ],
+  "physical_validation": "not performed",
+  "lid_connection": {
+    "locator_diameter_mm": 7,
+    "locator_height_mm": 2.5,
+    "socket_diameter_mm": 7.3,
+    "socket_depth_mm": 2.8,
+    "lid_thickness_mm": 9,
+    "counterbore_diameter_mm": 7.6,
+    "counterbore_depth_mm": 4.3,
+    "counterbore_floor_thickness_mm": 1.9,
+    "head_recess_below_surface_mm": 0.3,
+    "m4_thread_depth_mm": 12,
+    "nominal_engagement_mm": 9.8,
+    "nominal_tip_clearance_mm": 2.2,
+    "BOSL2_tolerance": "8G",
+    "BOSL2_slop_mm": 0.04
+  },
+  "circular_precision": {
+    "fa": 1.0,
+    "fs": 0.1,
+    "fn": 0.0
+  },
+  "blade_clamp": {
+    "geometry": "constant-thickness outer support web from bed to top",
+    "web_thickness_mm": 8,
+    "screw_centre_to_inner_edge_mm": 3.8,
+    "central_fin_thickness_mm": 3.2,
+    "hardware_changed": false
+  }
+}

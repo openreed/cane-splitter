@@ -1,0 +1,136 @@
+{
+  "oboe": [
+    {
+      "part": "body",
+      "dimensions_mm": [
+        63.07,
+        63.07,
+        50.38
+      ],
+      "triangles": 94386,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 55966.1
+    },
+    {
+      "part": "connection_coupon",
+      "dimensions_mm": [
+        37.0,
+        16.0,
+        16.5
+      ],
+      "triangles": 26120,
+      "components": 2,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 4231.1
+    },
+    {
+      "part": "coupon",
+      "dimensions_mm": [
+        54.0,
+        23.4,
+        7.0
+      ],
+      "triangles": 132,
+      "components": 3,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 7686.8
+    },
+    {
+      "part": "locking_ring",
+      "dimensions_mm": [
+        59.07,
+        59.07,
+        9.0
+      ],
+      "triangles": 18674,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 22762.5
+    },
+    {
+      "part": "palm_cap",
+      "dimensions_mm": [
+        66.67,
+        66.67,
+        25.5
+      ],
+      "triangles": 32838,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 27343.3
+    }
+  ],
+  "bassoon": [
+    {
+      "part": "body",
+      "dimensions_mm": [
+        76.92,
+        76.92,
+        52.58
+      ],
+      "triangles": 114816,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 77633.5
+    },
+    {
+      "part": "connection_coupon",
+      "dimensions_mm": [
+        37.0,
+        16.0,
+        16.5
+      ],
+      "triangles": 26120,
+      "components": 2,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 4231.1
+    },
+    {
+      "part": "coupon",
+      "dimensions_mm": [
+        54.0,
+        23.4,
+        7.0
+      ],
+      "triangles": 132,
+      "components": 3,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 7686.8
+    },
+    {
+      "part": "locking_ring",
+      "dimensions_mm": [
+        72.92,
+        72.92,
+        9.0
+      ],
+      "triangles": 20984,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 31394.1
+    },
+    {
+      "part": "palm_cap",
+      "dimensions_mm": [
+        80.52,
+        80.52,
+        25.5
+      ],
+      "triangles": 32838,
+      "components": 1,
+      "closed_manifold": true,
+      "nondegenerate_faces": true,
+      "volume_mm3": 36733.4
+    }
+  ]
+}
